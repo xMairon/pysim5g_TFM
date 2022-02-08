@@ -1,5 +1,5 @@
 """
-Runner for system_simulator.py
+Lanzador para system_simulator.py
 
 Written by Edward Oughton
 May 2019
@@ -11,11 +11,40 @@ import configparser
 import csv
 
 import math
-import fiona
+"""
+
+Fiona necesita GDAL en Windows, y ambas versiones compatibles
+(tanto GDAL y Fional como Python). Se han instalado siguiendo
+las instrucciones para "GDAL wheel" https://geoffboeing.com/2014/09/using-geopandas-windows/
+
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal
+GDAL‑3.4.1‑cp39‑cp39‑win_amd64.whl
+Instalar usando pip install \miniconda3\envs\pysim5g_3-9\GDAL‑3.4.1‑cp39‑cp39‑win_amd64.whl
+
+Añadir como VARIABLE DE ENTORNO DE WINDOWS el path de GDAL
+https://sandbox.idre.ucla.edu/sandbox/tutorials/installing-gdal-for-windows
+
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#fiona
+Fiona‑1.8.20‑cp39‑cp39‑win_amd64.whl
+Instalar usando pip install \miniconda3\envs\pysim5g_3-9\Fiona-1.8.20-cp39-cp39-win_amd64.whl
+
+pyproj-3.3.0-cp39-cp39-win_amd64
+Instalar usando pip install \miniconda3\envs\pysim5g_3-9\pyproj-3.3.0-cp39-cp39-win_amd64.whl
+
+Rtree-0.9.7-cp39-cp39-win_amd64.whl
+Instalar usando pip install \miniconda3\envs\pysim5g_3-9\Rtree-0.9.7-cp39-cp39-win_amd64.whl
+
+Shapely-1.8.0-cp39-cp39-win_amd64.whl
+Instalar usando pip install \miniconda3\envs\pysim5g_3-9\Shapely-1.8.0-cp39-cp39-win_amd64.whl
+
+El error en dependencias DLL se elimina.
+
+"""
+import fiona  # Instalar Libería
 from shapely.geometry import shape, Point, LineString, mapping
-import numpy as np
+import numpy as np # Instalar Libería
 from random import choice
-from rtree import index
+from rtree import index # Instalar Libería
 
 from collections import OrderedDict
 
@@ -33,25 +62,25 @@ BASE_PATH = CONFIG['file_locations']['base_path']
 def generate_receivers(site_area, parameters, grid):
     """
 
-    Generate receiver locations as points within the site area.
+    Genera las ubicaciones de los receptores como puntos dentro del área.
 
-    Sampling points can either be generated on a grid (grid=1)
-    or more efficiently between the transmitter and the edge
-    of the site (grid=0) area.
+    Los puntos de muestreo pueden generarse en una cuadrícula (grid=1)
+    o, de manera más eficaz entre el transmisor y el borde
+    del área del emplazamiento (edge=0).
 
-    Parameters
+    Parámetros
     ----------
     site_area : polygon
-        Shape of the site area we want to generate receivers within.
+        Forma de la zona del sitio en la que queremos generar receptores.
     parameters : dict
-        Contains all necessary simulation parameters.
+        Parámetros necesarios para la simulación.
     grid : int
-        Binary indicator to dictate receiver generation type.
+        Indicador binario para indicar el tipo de generación del receptor.
 
     Output
     ------
     receivers : List of dicts
-        Contains the quantity of desired receivers within the area boundary.
+        Contiene la cantidad de receptores deseados dentro del límite del área.
 
     """
     receivers = []
@@ -142,7 +171,7 @@ def generate_receivers(site_area, parameters, grid):
 def obtain_percentile_values(results, transmission_type, parameters, confidence_intervals):
     """
 
-    Get the threshold value for a metric based on a given percentiles.
+    Obtiene el valor del umbral de una métrica en función de unos percentiles determinados.
 
     Parameters
     ----------
@@ -155,7 +184,7 @@ def obtain_percentile_values(results, transmission_type, parameters, confidence_
     Output
     ------
     percentile_site_results : dict
-        Contains the percentile value for each site metric.
+        Contiene el valor del percentil de cada métrica del sitio.
 
     """
     output = []
@@ -234,7 +263,7 @@ def obtain_percentile_values(results, transmission_type, parameters, confidence_
 def obtain_threshold_values_choice(results, parameters):
     """
 
-    Get the threshold capacity based on a given percentile.
+    Obtiene el umbral de capacidad basado en un percentil determinado.
 
     Parameters
     ----------
@@ -276,7 +305,7 @@ def obtain_threshold_values_choice(results, parameters):
 def convert_results_geojson(data):
     """
 
-    Convert results to geojson format, for writing to shapefile.
+    Convierte los resultados en formato geojson, para escribirlos en un shapefile.
 
     Parameters
     ----------
@@ -427,8 +456,8 @@ def write_frequency_lookup_table(results, environment, site_radius,
     directory, filename, parameters):
     """
 
-    Write the main, comprehensive lookup table for all environments,
-    site radii, frequencies etc.
+    Escribir la tabla de búsqueda principal y completa para todos los entornos,
+    los radios de los sitios, las frecuencias, etc.
 
     Parameters
     ----------
