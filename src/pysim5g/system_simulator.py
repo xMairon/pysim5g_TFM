@@ -711,7 +711,7 @@ def pairwise(iterable):
 
     Example
     -------
-        >>> list(pairwise([1,2,3,4]))
+        # >>> list(pairwise([1,2,3,4]))
             [(1,2),(2,3),(3,4)]
 
     """
