@@ -16,6 +16,7 @@ CONFIG.read(os.path.join(os.path.dirname(__file__), '..', 'scripts', 'script_con
 BASE_PATH = CONFIG['file_locations']['base_path']
 
 DATA = os.path.join(BASE_PATH, '..', 'results')
+# DATA = os.path.join('C:/Users/Ismael/PycharmProjects/pysim5G_TFM/scripts/results')
 # Eliminar de la ruta la carpeta vis (BASE_PATH, '..', 'vis', 'outputs').
 DATA_OUTPUT = os.path.join(BASE_PATH, '..', 'outputs')
 

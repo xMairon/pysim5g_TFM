@@ -936,6 +936,7 @@ def run_simulator(parameters, spectrum_portfolio, ant_types,
 
                 print('--working on {}: {}'.format(environment, site_radius))
 
+                # int_site_areas a interfering_site_areas
                 transmitter, interfering_transmitters, site_area, int_site_areas = \
                     produce_sites_and_site_areas(
                         unprojected_point['geometry']['coordinates'],
@@ -985,17 +986,18 @@ def run_simulator(parameters, spectrum_portfolio, ant_types,
                         'capacity_lut_by_frequency.csv', parameters
                     )
 
-                    # if frequency == spectrum_portfolio[0][0]:
+                    # Solución al error al ejecutar vis.py FileNotFoundError: [Errno 2] No such file or directory: 'data\\..\\results\\percentile_50_capacity_lut.csv'
+                    if frequency == spectrum_portfolio[0][0]:
 
-                    #     percentile_site_results = calculate_costs(
-                    #         percentile_site_results, costs, parameters,
-                    #         site_radius, environment
-                    #     )
+                        percentile_site_results = calculate_costs(
+                            percentile_site_results, costs, parameters,
+                            site_radius, environment
+                        )
 
-                    #     write_cost_lookup_table(percentile_site_results, results_directory,
-                    #         'percentile_{}_capacity_lut.csv'.format(
-                    #         parameters['percentile'])
-                    #     )
+                        write_cost_lookup_table(percentile_site_results, results_directory,
+                            'percentile_{}_capacity_lut.csv'.format(
+                            parameters['percentile'])
+                        )
 
     #                     # geojson_receivers = convert_results_geojson(results)
 
@@ -1029,11 +1031,11 @@ def run_simulator(parameters, spectrum_portfolio, ant_types,
     #                     #     projected_crs
     #                     # )
 
-    # # write_export_strategy_costs(os.path.join(results_directory,
-    # #     'percentile_{}_capacity_lut.csv'.format(PARAMETERS['percentile'])),
-    # #     results_directory,
-    # #     'aggregate_strategy_costs.csv'.format(PARAMETERS['percentile'])
-    # # )
+    # write_export_strategy_costs(os.path.join(results_directory,
+    #     'percentile_{}_capacity_lut.csv'.format(PARAMETERS['percentile'])),
+    #     results_directory,
+    #     'aggregate_strategy_costs.csv'.format(PARAMETERS['percentile'])
+    # )
 
 
 if __name__ == '__main__':
